@@ -839,3 +839,46 @@ body {
     text-align: right !important;
   }
 }
+
+/* Direct PDF Export Mode (html2pdf) */
+.certificate-sheet.pdf-exporting {
+  width: 720px !important;
+  max-width: 720px !important;
+  min-height: 1030px !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.certificate-sheet.pdf-exporting .cert-border {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 34px 38px !important;
+}
+
+.certificate-sheet.pdf-exporting .cert-header {
+  flex-direction: row !important;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.certificate-sheet.pdf-exporting .cert-ref-block {
+  text-align: right !important;
+}
+
+.certificate-sheet.pdf-exporting .cert-footer {
+  grid-template-columns: 1.3fr 1fr !important;
+  align-items: end;
+}
+
+.certificate-sheet.pdf-exporting .cert-qr-block {
+  align-items: flex-end !important;
+}
+
+.certificate-sheet.pdf-exporting .qr-caption {
+  text-align: right !important;
+}

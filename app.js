@@ -304,6 +304,17 @@
     document.getElementById("btnPrintTop").addEventListener("click", () => window.print());
     document.getElementById("btnPrintMain").addEventListener("click", () => window.print());
 
+    // Direct PDF Download buttons
+    const pdfButtons = [
+      document.getElementById("btnDownloadPdfTop"),
+      document.getElementById("btnDownloadPdfHero"),
+      document.getElementById("btnDownloadPdfMain")
+    ].filter(Boolean);
+
+    pdfButtons.forEach((btn) => {
+      btn.addEventListener("click", () => downloadCertificatePdf(pdfButtons));
+    });
+
     // Edit scroll button
     document.getElementById("btnToggleEdit").addEventListener("click", () => {
       document.getElementById("customizer").scrollIntoView({ behavior: "smooth" });
@@ -467,6 +478,51 @@
             </div>`;
         }
         fileInput.value = "";
+      });
+    }
+  }
+
+  async function downloadCertificatePdf(buttons) {
+    const sheet = document.getElementById("certificateSheet");
+    if (!sheet) return;
+
+    if (typeof window.html2pdf !== "function") {
+      window.print();
+      return;
+    }
+
+    const originalLabels = buttons.map((b) => b.textContent);
+    buttons.forEach((b) => {
+      b.disabled = true;
+      b.textContent = "Generating PDF...";
+    });
+
+    const empName = (fields.empName.value || "Certificate")
+      .trim()
+      .replace(/[^a-zA-Z0-9]+/g, "_")
+      .replace(/^_|_$/g, "");
+    const filename = `${empName}_Work_Experience_Certificate.pdf`;
+
+    sheet.classList.add("pdf-exporting");
+
+    try {
+      await window.html2pdf()
+        .set({
+          margin: [10, 10, 10, 10],
+          filename,
+          image: { type: "jpeg", quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true, logging: false },
+          jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
+        })
+        .from(sheet)
+        .save();
+    } catch {
+      window.print();
+    } finally {
+      sheet.classList.remove("pdf-exporting");
+      buttons.forEach((b, idx) => {
+        b.disabled = false;
+        b.textContent = originalLabels[idx];
       });
     }
   }
