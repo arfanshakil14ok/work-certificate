@@ -882,3 +882,31 @@ body {
 .certificate-sheet.pdf-exporting .qr-caption {
   text-align: right !important;
 }
+
+/* QR Scan View (Show only Certificate + Download/Print bar) */
+.qr-view-bar {
+  max-width: 860px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.qr-view-bar .status-pill {
+  margin-bottom: 0;
+}
+
+body.qr-only-view .site-header,
+body.qr-only-view .hero,
+body.qr-only-view .section-bar,
+body.qr-only-view .customizer-section,
+body.qr-only-view .verify-section,
+body.qr-only-view .site-footer {
+  display: none !important;
+}
+
+body.qr-only-view .cert-section {
+  padding: 28px 0 48px;
+}

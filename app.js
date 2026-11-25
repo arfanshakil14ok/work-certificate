@@ -303,12 +303,15 @@
     // Print buttons
     document.getElementById("btnPrintTop").addEventListener("click", () => window.print());
     document.getElementById("btnPrintMain").addEventListener("click", () => window.print());
+    const btnPrintQr = document.getElementById("btnPrintQr");
+    if (btnPrintQr) btnPrintQr.addEventListener("click", () => window.print());
 
     // Direct PDF Download buttons
     const pdfButtons = [
       document.getElementById("btnDownloadPdfTop"),
       document.getElementById("btnDownloadPdfHero"),
-      document.getElementById("btnDownloadPdfMain")
+      document.getElementById("btnDownloadPdfMain"),
+      document.getElementById("btnDownloadPdfQr")
     ].filter(Boolean);
 
     pdfButtons.forEach((btn) => {
@@ -335,7 +338,7 @@
     // Copy verification link
     document.getElementById("btnCopyLink").addEventListener("click", async () => {
       const id = encodeURIComponent(fields.refNo.value.trim());
-      const url = `${window.location.origin}${window.location.pathname}?id=${id}#verify`;
+      const url = `${window.location.origin}${window.location.pathname}?id=${id}`;
       try {
         await navigator.clipboard.writeText(url);
         els.copyFeedback.textContent = "Verification link copied to clipboard!";
@@ -356,10 +359,22 @@
     // QR Scanner (Camera + Image Upload)
     setupQrScanner();
 
-    // Auto-verify if ?id= is present in URL
+    // If opened via QR scan (?id=...), show ONLY the certificate & PDF download bar
     const params = new URLSearchParams(window.location.search);
     const urlId = params.get("id");
     if (urlId) {
+      document.body.classList.add("qr-only-view");
+      const qrViewBar = document.getElementById("qrViewBar");
+      const qrViewStatus = document.getElementById("qrViewStatus");
+      if (qrViewBar) qrViewBar.hidden = false;
+
+      const matches = urlId.trim().toLowerCase() === fields.refNo.value.trim().toLowerCase();
+      if (qrViewStatus) {
+        qrViewStatus.innerHTML = matches
+          ? `<span class="dot"></span><span>Verified Certificate (${escapeHtml(fields.refNo.value)})</span>`
+          : `<span>Record ID mismatch (${escapeHtml(urlId)})</span>`;
+      }
+
       els.verifyInput.value = urlId;
       runVerification(urlId);
     }

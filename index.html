@@ -100,6 +100,17 @@
     <!-- Certificate Preview Section -->
     <section id="certificate" class="cert-section">
       <div class="container">
+        <div class="qr-view-bar no-print" id="qrViewBar" hidden>
+          <div class="status-pill" id="qrViewStatus">
+            <span class="dot"></span>
+            <span>Verified Online Certificate</span>
+          </div>
+          <div class="section-bar-actions">
+            <button type="button" class="btn btn-outline btn-sm" id="btnPrintQr">Print</button>
+            <button type="button" class="btn btn-primary btn-sm" id="btnDownloadPdfQr">Download A4 PDF</button>
+          </div>
+        </div>
+
         <div class="section-bar no-print">
           <div>
             <h2>Official Certificate Preview</h2>
