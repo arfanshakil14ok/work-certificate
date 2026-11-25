@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>General Labourer — Online Work Experience Certificate &amp; Verification</title>
+  <meta name="description" content="Professional online General Labourer work experience certificate landing page, live customizer, A4 PDF print export, and certificate ID verification." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Top Navigation (hidden on print) -->
+  <header class="site-header no-print">
+    <div class="container header-inner">
+      <a href="#top" class="brand">
+        <span class="brand-badge" aria-hidden="true">GL</span>
+        <span class="brand-text">
+          <strong>WorkCert</strong>
+          <small>General Labourer Portal</small>
+        </span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#certificate">Certificate</a>
+        <a href="#customizer">Customize</a>
+        <a href="#verify">Verify ID</a>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="btn btn-outline btn-sm" id="btnToggleEdit">Edit Details</button>
+        <button type="button" class="btn btn-primary btn-sm" id="btnPrintTop">Print / Save PDF</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero Section (hidden on print) -->
+    <section class="hero no-print">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Online Experience Verification</span>
+          <h1>General Labourer Work Experience Certificate</h1>
+          <p class="hero-sub">
+            A clean, verifiable online work experience certificate landing page ready for Vercel deployment. Customize employer and worker details, share a verification link, or export an A4 PDF in one click.
+          </p>
+          <div class="hero-cta">
+            <a href="#certificate" class="btn btn-primary">View Certificate</a>
+            <a href="#customizer" class="btn btn-outline">Customize Fields</a>
+            <a href="#verify" class="btn btn-ghost">Verify Certificate ID</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-val">A4</span>
+              <span class="stat-lbl">Print-Ready PDF</span>
+            </div>
+            <div class="stat">
+              <span class="stat-val">QR</span>
+              <span class="stat-lbl">Live Verification</span>
+            </div>
+            <div class="stat">
+              <span class="stat-val">100%</span>
+              <span class="stat-lbl">Vercel Ready</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="status-pill">
+            <span class="dot"></span>
+            <span>Certificate Record Active</span>
+          </div>
+          <dl class="quick-meta">
+            <div>
+              <dt>Role</dt>
+              <dd id="heroRole">General Labourer</dd>
+            </div>
+            <div>
+              <dt>Certificate ID</dt>
+              <dd id="heroCertId">GL-2026-0842</dd>
+            </div>
+            <div>
+              <dt>Employee</dt>
+              <dd id="heroEmpName">Md. Rahim Uddin</dd>
+            </div>
+            <div>
+              <dt>Employer</dt>
+              <dd id="heroCompany">Apex Builders &amp; Contracting Ltd.</dd>
+            </div>
+          </dl>
+          <button type="button" class="btn btn-primary btn-block" id="btnCopyLink">
+            Copy Shareable Verification Link
+          </button>
+          <p class="copy-feedback" id="copyFeedback" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certificate Preview Section -->
+    <section id="certificate" class="cert-section">
+      <div class="container">
+        <div class="section-bar no-print">
+          <div>
+            <h2>Official Certificate Preview</h2>
+            <p>Formatted for A4 paper. Click <strong>Print / Save PDF</strong> and choose &ldquo;Save as PDF&rdquo;.</p>
+          </div>
+          <div class="section-bar-actions">
+            <button type="button" class="btn btn-outline btn-sm" id="btnResetDemo">Reset Sample</button>
+            <button type="button" class="btn btn-primary btn-sm" id="btnPrintMain">Print / Save PDF</button>
+          </div>
+        </div>
+
+        <!-- Printable A4 Certificate Sheet -->
+        <article class="certificate-sheet" id="certificateSheet" aria-label="General Labourer Work Experience Certificate">
+          <div class="cert-border">
+            <!-- Header -->
+            <header class="cert-header">
+              <div class="cert-company-block">
+                <div class="cert-logo" id="certLogoText">AB</div>
+                <div>
+                  <h3 class="cert-company-name" id="certCompanyName">Apex Builders &amp; Contracting Ltd.</h3>
+                  <p class="cert-company-meta" id="certCompanyAddress">House 24, Road 12, Banani, Dhaka 1213, Bangladesh</p>
+                  <p class="cert-company-meta" id="certCompanyContact">Tel: +880 1700-000000 &bull; Email: hr@apexbuilders.example</p>
+                </div>
+              </div>
+              <div class="cert-ref-block">
+                <p><strong>Ref No:</strong> <span id="certRefNo">GL-2026-0842</span></p>
+                <p><strong>Issue Date:</strong> <span id="certIssueDate">November 25, 2026</span></p>
+              </div>
+            </header>
+
+            <div class="cert-divider"></div>
+
+            <!-- Title -->
+            <div class="cert-title-wrap">
+              <p class="cert-kicker">TO WHOM IT MAY CONCERN</p>
+              <h1 class="cert-title">WORK EXPERIENCE CERTIFICATE</h1>
+            </div>
+
+            <!-- Body -->
+            <div class="cert-body">
+              <p>
+                This is to certify that <strong id="certEmpName">Md. Rahim Uddin</strong>
+                (ID / Passport No.: <strong id="certEmpId">A01234567</strong>) was employed with
+                <strong id="certBodyCompany">Apex Builders &amp; Contracting Ltd.</strong> as a
+                <strong id="certJobTitle">General Labourer</strong> at our
+                <strong id="certSiteLocation">Commercial Tower &amp; Civil Works Site</strong>
+                from <strong id="certStartDate">January 10, 2024</strong> to
+                <strong id="certEndDate">October 31, 2026</strong>.
+              </p>
+
+              <p>
+                During his/her tenure with our organization, his/her key duties and responsibilities included:
+              </p>
+
+              <ul class="cert-duties" id="certDutiesList">
+                <li>Assisting skilled tradespeople (masons, carpenters, and electricians) with daily site operations.</li>
+                <li>Loading, unloading, sorting, and transporting construction materials, tools, and equipment safely.</li>
+                <li>Preparing work sites, digging trenches, mixing mortar/concrete, and clearing debris.</li>
+                <li>Operating basic hand and power tools in accordance with standard safety procedures.</li>
+                <li>Maintaining workplace cleanliness, PPE compliance, and occupational health &amp; safety standards.</li>
+              </ul>
+
+              <p id="certConductPara">
+                Throughout this period, <strong id="certEmpNameInline">Md. Rahim Uddin</strong> demonstrated strong work ethic, punctuality, physical reliability, and teamwork. We wish him/her every success in future endeavours.
+              </p>
+            </div>
+
+            <!-- Footer: Signature, Seal & QR -->
+            <footer class="cert-footer">
+              <div class="cert-signatory">
+                <div class="sig-line"></div>
+                <p class="sig-name" id="certSignatoryName">Engr. Tariqul Islam</p>
+                <p class="sig-role" id="certSignatoryTitle">Project Manager &amp; HR Authorized Signatory</p>
+                <p class="sig-company" id="certSignatoryCompany">Apex Builders &amp; Contracting Ltd.</p>
+              </div>
+
+              <div class="cert-seal" aria-label="Official Company Stamp">
+                <svg viewBox="0 0 120 120" class="seal-svg" role="img" aria-label="Verified Company Seal">
+                  <circle cx="60" cy="60" r="54" fill="none" stroke="#1e3a5f" stroke-width="2.5" stroke-dasharray="4 2" />
+                  <circle cx="60" cy="60" r="44" fill="none" stroke="#1e3a5f" stroke-width="1.5" />
+                  <text x="60" y="48" text-anchor="middle" font-size="9" font-weight="700" fill="#1e3a5f" letter-spacing="1.2">VERIFIED</text>
+                  <text x="60" y="64" text-anchor="middle" font-size="11" font-weight="700" fill="#1e3a5f">OFFICIAL</text>
+                  <text x="60" y="79" text-anchor="middle" font-size="8.5" font-weight="600" fill="#1e3a5f" letter-spacing="1">SEAL</text>
+                </svg>
+              </div>
+
+              <div class="cert-qr-block">
+                <canvas id="qrCanvas" width="92" height="92" aria-label="Verification QR Code"></canvas>
+                <span class="qr-caption">Scan or verify ID:<br /><strong id="certQrId">GL-2026-0842</strong></span>
+              </div>
+            </footer>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Interactive Customizer Section (hidden on print) -->
+    <section id="customizer" class="customizer-section no-print">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Customize Certificate Details</h2>
+          <p>Update any field below to see live changes on the certificate. Changes are saved automatically in your browser.</p>
+        </div>
+
+        <form id="certForm" class="customizer-form" autocomplete="off">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="inputEmpName">Employee Full Name</label>
+              <input type="text" id="inputEmpName" value="Md. Rahim Uddin" required />
+            </div>
+            <div class="form-group">
+              <label for="inputEmpId">NID / Passport / Employee ID</label>
+              <input type="text" id="inputEmpId" value="A01234567" required />
+            </div>
+            <div class="form-group">
+              <label for="inputJobTitle">Job Title</label>
+              <input type="text" id="inputJobTitle" value="General Labourer" required />
+            </div>
+            <div class="form-group">
+              <label for="inputRefNo">Certificate / Reference ID</label>
+              <input type="text" id="inputRefNo" value="GL-2026-0842" required />
+            </div>
+
+            <div class="form-group">
+              <label for="inputStartDate">Employment Start Date</label>
+              <input type="text" id="inputStartDate" value="January 10, 2024" required />
+            </div>
+            <div class="form-group">
+              <label for="inputEndDate">Employment End Date</label>
+              <input type="text" id="inputEndDate" value="October 31, 2026" required />
+            </div>
+            <div class="form-group">
+              <label for="inputIssueDate">Certificate Issue Date</label>
+              <input type="text" id="inputIssueDate" value="November 25, 2026" required />
+            </div>
+            <div class="form-group">
+              <label for="inputSiteLocation">Work Site / Department</label>
+              <input type="text" id="inputSiteLocation" value="Commercial Tower & Civil Works Site" required />
+            </div>
+
+            <div class="form-group">
+              <label for="inputCompanyName">Company / Employer Name</label>
+              <input type="text" id="inputCompanyName" value="Apex Builders & Contracting Ltd." required />
+            </div>
+            <div class="form-group">
+              <label for="inputCompanyAddress">Company Address</label>
+              <input type="text" id="inputCompanyAddress" value="House 24, Road 12, Banani, Dhaka 1213, Bangladesh" required />
+            </div>
+            <div class="form-group">
+              <label for="inputCompanyContact">Company Phone &amp; Email</label>
+              <input type="text" id="inputCompanyContact" value="Tel: +880 1700-000000 • Email: hr@apexbuilders.example" required />
+            </div>
+            <div class="form-group">
+              <label for="inputSignatoryName">Authorized Signatory Name</label>
+              <input type="text" id="inputSignatoryName" value="Engr. Tariqul Islam" required />
+            </div>
+            <div class="form-group form-group-full">
+              <label for="inputSignatoryTitle">Signatory Designation</label>
+              <input type="text" id="inputSignatoryTitle" value="Project Manager & HR Authorized Signatory" required />
+            </div>
+            <div class="form-group form-group-full">
+              <label for="inputDuties">Key Duties &amp; Responsibilities (one per line)</label>
+              <textarea id="inputDuties" rows="5">Assisting skilled tradespeople (masons, carpenters, and electricians) with daily site operations.
+Loading, unloading, sorting, and transporting construction materials, tools, and equipment safely.
+Preparing work sites, digging trenches, mixing mortar/concrete, and clearing debris.
+Operating basic hand and power tools in accordance with standard safety procedures.
+Maintaining workplace cleanliness, PPE compliance, and occupational health & safety standards.</textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Online Verification Section (hidden on print) -->
+    <section id="verify" class="verify-section no-print">
+      <div class="container">
+        <div class="verify-card">
+          <div class="verify-copy">
+            <h2>Online Certificate Verification</h2>
+            <p>Enter a Certificate ID (e.g. <code>GL-2026-0842</code>) to check its validity against the current record.</p>
+          </div>
+          <form id="verifyForm" class="verify-form">
+            <input type="text" id="verifyInput" placeholder="Enter Certificate ID (e.g. GL-2026-0842)" aria-label="Certificate ID to verify" />
+            <button type="submit" class="btn btn-primary">Verify Now</button>
+          </form>
+          <div id="verifyResult" class="verify-result" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer no-print">
+    <div class="container footer-inner">
+      <p>General Labourer Work Experience Certificate Portal &bull; Ready for Vercel Static Deployment</p>
+      <p class="footer-note">Note: Replace the sample employer and worker details with your verified employment information before sharing.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
