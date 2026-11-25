@@ -451,7 +451,7 @@ body {
 .cert-footer {
   margin-top: 38px;
   display: grid;
-  grid-template-columns: 1.3fr auto 1fr;
+  grid-template-columns: 1.3fr 1fr;
   align-items: end;
   gap: 20px;
 }
@@ -826,7 +826,7 @@ body {
 
   .cert-footer {
     margin-top: 14mm;
-    grid-template-columns: 1.3fr auto 1fr !important;
+    grid-template-columns: 1.3fr 1fr !important;
     align-items: end;
     gap: 16px;
   }
