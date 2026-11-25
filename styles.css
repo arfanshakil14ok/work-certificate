@@ -764,23 +764,30 @@ body {
   .certificate-sheet {
     width: 100% !important;
     max-width: 100% !important;
-    min-height: 274mm;
+    height: 268mm !important;
+    min-height: 0 !important;
+    max-height: 272mm !important;
+    overflow: hidden !important;
     margin: 0 !important;
     padding: 0 !important;
     box-shadow: none !important;
     border: none !important;
-    display: flex;
-    flex-direction: column;
+    display: flex !important;
+    flex-direction: column !important;
     page-break-inside: avoid;
     break-inside: avoid;
+    page-break-after: avoid;
+    break-after: avoid;
   }
 
   .cert-border {
     flex: 1;
+    height: 100%;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 13mm 14mm !important;
+    padding: 12mm 13mm !important;
     border: 2px solid var(--navy);
   }
 
@@ -796,28 +803,28 @@ body {
   }
 
   .cert-divider {
-    margin: 14px 0 18px;
+    margin: 12px 0 16px;
   }
 
   .cert-title-wrap {
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
 
   .cert-title {
-    font-size: 1.7rem;
+    font-size: 1.68rem;
   }
 
   .cert-body {
-    font-size: 0.95rem;
-    line-height: 1.65;
+    font-size: 0.94rem;
+    line-height: 1.62;
   }
 
   .cert-body p {
-    margin: 0 0 12px;
+    margin: 0 0 11px;
   }
 
   .cert-duties {
-    margin: 0 0 14px;
+    margin: 0 0 12px;
   }
 
   .cert-duties li {
@@ -825,7 +832,8 @@ body {
   }
 
   .cert-footer {
-    margin-top: 14mm;
+    margin-top: auto !important;
+    padding-top: 10mm;
     grid-template-columns: 1.3fr 1fr !important;
     align-items: end;
     gap: 16px;
