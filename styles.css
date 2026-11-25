@@ -596,15 +596,47 @@ body {
 
 .verify-form {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
-.verify-form input {
+.verify-form input[type="text"] {
   flex: 1;
+  min-width: 220px;
   font: inherit;
   padding: 11px 14px;
   border: 1px solid var(--border);
   border-radius: 8px;
+}
+
+.qr-upload-label {
+  cursor: pointer;
+}
+
+.qr-scanner-box {
+  margin-top: 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  background: #f9fafb;
+}
+
+.qr-scanner-box video {
+  width: 100%;
+  max-width: 360px;
+  border-radius: 8px;
+  display: block;
+  background: #111827;
+}
+
+.qr-scanner-actions {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.85rem;
+  color: var(--muted);
 }
 
 .verify-result {

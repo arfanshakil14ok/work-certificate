@@ -1,5 +1,5 @@
 (() => {
-  const STORAGE_KEY = "workcert_gl_data_v2";
+  const STORAGE_KEY = "workcert_gl_data_v3";
 
   const DEFAULTS = {
     empName: "MD MAHABUB ALMA",
@@ -10,15 +10,15 @@
     empAddress: "Madhobpur, Barhatta, Kumarpara - 2400, Netrokona, Bangladesh",
     jobTitle: "General Labourer / General Worker",
     refNo: "GL-2026-0842",
-    startDate: "[Start Date]",
-    endDate: "[End Date]",
-    issueDate: "November 25, 2026",
-    siteLocation: "[Work Site / Project Location]",
-    companyName: "[Employer / Company Name]",
-    companyAddress: "[Employer Address]",
-    companyContact: "[Employer Phone & Email]",
-    signatoryName: "[Authorized Signatory Name]",
-    signatoryTitle: "[Designation / Title]",
+    startDate: "14-Apr-2018",
+    endDate: "10-03-2026",
+    issueDate: "25/10/2026",
+    siteLocation: "General Labourer / General Worker",
+    companyName: "ARFAN BUILDERS & CONSTRUCTION",
+    companyAddress: "ISLAMPUR MORE, DIABETICS HOSPITAL ROAD, NETROKONA SADAR - 2400",
+    companyContact: "01913681771, SUPPORT@ARFANBUILDERS.COM",
+    signatoryName: "MD ZAKIR HOSSAIN",
+    signatoryTitle: "MANAGER",
     duties: [
       "Performing general labouring, site preparation, cleaning, and material handling duties as assigned.",
       "Assisting skilled tradespeople (masons, carpenters, and technicians) with daily site operations.",
@@ -110,6 +110,34 @@
     if (!canvas || !canvas.getContext) return;
     const ctx = canvas.getContext("2d");
     const size = canvas.width;
+
+    // Use real scannable QR code when qrcode-generator is loaded
+    if (typeof window.qrcode === "function") {
+      try {
+        const qr = window.qrcode(0, "M");
+        qr.addData(text);
+        qr.make();
+        const count = qr.getModuleCount();
+        const cellSize = Math.floor(size / count);
+        const offset = Math.floor((size - count * cellSize) / 2);
+
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, size, size);
+        ctx.fillStyle = "#111827";
+
+        for (let r = 0; r < count; r++) {
+          for (let c = 0; c < count; c++) {
+            if (qr.isDark(r, c)) {
+              ctx.fillRect(offset + c * cellSize, offset + r * cellSize, cellSize, cellSize);
+            }
+          }
+        }
+        return;
+      } catch {
+        // Fall back to deterministic matrix below
+      }
+    }
+
     const cells = 21;
     const cellSize = Math.floor(size / cells);
     const offset = Math.floor((size - cells * cellSize) / 2);
@@ -314,12 +342,132 @@
       runVerification(els.verifyInput.value);
     });
 
+    // QR Scanner (Camera + Image Upload)
+    setupQrScanner();
+
     // Auto-verify if ?id= is present in URL
     const params = new URLSearchParams(window.location.search);
     const urlId = params.get("id");
     if (urlId) {
       els.verifyInput.value = urlId;
       runVerification(urlId);
+    }
+  }
+
+  function extractIdFromQrText(raw) {
+    const trimmed = (raw || "").trim();
+    try {
+      const parsed = new URL(trimmed);
+      const paramId = parsed.searchParams.get("id");
+      if (paramId) return paramId;
+    } catch {
+      // Not a full URL; treat as raw Certificate ID
+    }
+    return trimmed;
+  }
+
+  function setupQrScanner() {
+    const btnScan = document.getElementById("btnScanQr");
+    const btnStop = document.getElementById("btnStopScan");
+    const fileInput = document.getElementById("qrFileInput");
+    const box = document.getElementById("qrScannerBox");
+    const video = document.getElementById("qrVideo");
+    const statusEl = document.getElementById("qrScannerStatus");
+    let stream = null;
+    let scanTimer = null;
+
+    function stopCamera() {
+      if (scanTimer) {
+        clearInterval(scanTimer);
+        scanTimer = null;
+      }
+      if (stream) {
+        stream.getTracks().forEach((t) => t.stop());
+        stream = null;
+      }
+      video.srcObject = null;
+      box.hidden = true;
+    }
+
+    if (btnStop) {
+      btnStop.addEventListener("click", stopCamera);
+    }
+
+    if (btnScan) {
+      btnScan.addEventListener("click", async () => {
+        if (!("BarcodeDetector" in window)) {
+          els.verifyResult.innerHTML = `
+            <div class="verify-badge invalid">
+              In-browser camera QR scanning requires Chrome, Edge, or Android. You can still scan the certificate QR code directly with your phone camera, or enter the Certificate ID above.
+            </div>`;
+          return;
+        }
+        try {
+          const detector = new window.BarcodeDetector({ formats: ["qr_code"] });
+          stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+          video.srcObject = stream;
+          await video.play();
+          box.hidden = false;
+          statusEl.textContent = "Point camera at the certificate QR code...";
+
+          scanTimer = setInterval(async () => {
+            if (video.readyState < 2) return;
+            try {
+              const codes = await detector.detect(video);
+              if (codes.length > 0 && codes[0].rawValue) {
+                const certId = extractIdFromQrText(codes[0].rawValue);
+                els.verifyInput.value = certId;
+                stopCamera();
+                runVerification(certId);
+              }
+            } catch {
+              // Continue scanning frames
+            }
+          }, 300);
+        } catch {
+          stopCamera();
+          els.verifyResult.innerHTML = `
+            <div class="verify-badge invalid">
+              Could not access camera. Please allow camera permission or upload a QR image instead.
+            </div>`;
+        }
+      });
+    }
+
+    if (fileInput) {
+      fileInput.addEventListener("change", async (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        if (!("BarcodeDetector" in window)) {
+          els.verifyResult.innerHTML = `
+            <div class="verify-badge invalid">
+              Image QR decoding requires Chrome, Edge, or Android. You can scan the QR code with your phone camera or enter the ID manually.
+            </div>`;
+          fileInput.value = "";
+          return;
+        }
+        try {
+          const bitmap = await createImageBitmap(file);
+          const detector = new window.BarcodeDetector({ formats: ["qr_code"] });
+          const codes = await detector.detect(bitmap);
+          if (codes.length > 0 && codes[0].rawValue) {
+            const certId = extractIdFromQrText(codes[0].rawValue);
+            els.verifyInput.value = certId;
+            runVerification(certId);
+          } else {
+            els.verifyResult.innerHTML = `
+              <div class="verify-badge invalid">
+                No QR code detected in the selected image.
+              </div>`;
+          }
+        } catch {
+          els.verifyResult.innerHTML = `
+            <div class="verify-badge invalid">
+              Unable to read QR code from the selected image.
+            </div>`;
+        }
+        fileInput.value = "";
+      });
     }
   }
 
