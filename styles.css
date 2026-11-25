@@ -731,38 +731,111 @@ body {
   }
 }
 
-/* Print (A4 Clean Export) */
+/* Print (A4 Clean Single-Page Export) */
 @page {
   size: A4 portrait;
-  margin: 12mm;
+  margin: 10mm;
 }
 
 @media print {
+  html,
   body {
-    background: #fff;
+    width: 100%;
+    height: auto;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   .no-print {
     display: none !important;
   }
 
-  .cert-section {
-    padding: 0;
-  }
-
+  .cert-section,
   .container {
-    max-width: 100%;
-    padding: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .certificate-sheet {
-    max-width: 100%;
-    box-shadow: none;
-    border: none;
-    padding: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 274mm;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    display: flex;
+    flex-direction: column;
+    page-break-inside: avoid;
+    break-inside: avoid;
   }
 
   .cert-border {
-    padding: 26px 30px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 13mm 14mm !important;
+    border: 2px solid var(--navy);
+  }
+
+  .cert-header {
+    flex-direction: row !important;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .cert-ref-block {
+    text-align: right !important;
+  }
+
+  .cert-divider {
+    margin: 14px 0 18px;
+  }
+
+  .cert-title-wrap {
+    margin-bottom: 16px;
+  }
+
+  .cert-title {
+    font-size: 1.7rem;
+  }
+
+  .cert-body {
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .cert-body p {
+    margin: 0 0 12px;
+  }
+
+  .cert-duties {
+    margin: 0 0 14px;
+  }
+
+  .cert-duties li {
+    margin-bottom: 5px;
+  }
+
+  .cert-footer {
+    margin-top: 14mm;
+    grid-template-columns: 1.3fr auto 1fr !important;
+    align-items: end;
+    gap: 16px;
+  }
+
+  .cert-qr-block {
+    align-items: flex-end !important;
+  }
+
+  .qr-caption {
+    text-align: right !important;
   }
 }
