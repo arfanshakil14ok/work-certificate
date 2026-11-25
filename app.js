@@ -1,32 +1,40 @@
 (() => {
-  const STORAGE_KEY = "workcert_gl_data_v1";
+  const STORAGE_KEY = "workcert_gl_data_v2";
 
   const DEFAULTS = {
-    empName: "Md. Rahim Uddin",
-    empId: "A01234567",
-    jobTitle: "General Labourer",
+    empName: "MD MAHABUB ALMA",
+    fatherName: "MD ASHRAB ALI",
+    dob: "11 July 1993",
+    empId: "A24410968",
+    personalNo: "3710428792",
+    empAddress: "Madhobpur, Barhatta, Kumarpara - 2400, Netrokona, Bangladesh",
+    jobTitle: "General Labourer / General Worker",
     refNo: "GL-2026-0842",
-    startDate: "January 10, 2024",
-    endDate: "October 31, 2026",
+    startDate: "[Start Date]",
+    endDate: "[End Date]",
     issueDate: "November 25, 2026",
-    siteLocation: "Commercial Tower & Civil Works Site",
-    companyName: "Apex Builders & Contracting Ltd.",
-    companyAddress: "House 24, Road 12, Banani, Dhaka 1213, Bangladesh",
-    companyContact: "Tel: +880 1700-000000 \u2022 Email: hr@apexbuilders.example",
-    signatoryName: "Engr. Tariqul Islam",
-    signatoryTitle: "Project Manager & HR Authorized Signatory",
+    siteLocation: "[Work Site / Project Location]",
+    companyName: "[Employer / Company Name]",
+    companyAddress: "[Employer Address]",
+    companyContact: "[Employer Phone & Email]",
+    signatoryName: "[Authorized Signatory Name]",
+    signatoryTitle: "[Designation / Title]",
     duties: [
-      "Assisting skilled tradespeople (masons, carpenters, and electricians) with daily site operations.",
+      "Performing general labouring, site preparation, cleaning, and material handling duties as assigned.",
+      "Assisting skilled tradespeople (masons, carpenters, and technicians) with daily site operations.",
       "Loading, unloading, sorting, and transporting construction materials, tools, and equipment safely.",
-      "Preparing work sites, digging trenches, mixing mortar/concrete, and clearing debris.",
-      "Operating basic hand and power tools in accordance with standard safety procedures.",
-      "Maintaining workplace cleanliness, PPE compliance, and occupational health & safety standards."
+      "Operating basic hand and power tools in accordance with workplace safety rules and instructions.",
+      "Maintaining workplace cleanliness, PPE compliance, punctuality, and teamwork standards."
     ].join("\n")
   };
 
   const fields = {
     empName: document.getElementById("inputEmpName"),
+    fatherName: document.getElementById("inputFatherName"),
+    dob: document.getElementById("inputDob"),
     empId: document.getElementById("inputEmpId"),
+    personalNo: document.getElementById("inputPersonalNo"),
+    empAddress: document.getElementById("inputEmpAddress"),
     jobTitle: document.getElementById("inputJobTitle"),
     refNo: document.getElementById("inputRefNo"),
     startDate: document.getElementById("inputStartDate"),
@@ -45,7 +53,7 @@
     heroRole: document.getElementById("heroRole"),
     heroCertId: document.getElementById("heroCertId"),
     heroEmpName: document.getElementById("heroEmpName"),
-    heroCompany: document.getElementById("heroCompany"),
+    heroPassport: document.getElementById("heroPassport"),
     certLogoText: document.getElementById("certLogoText"),
     certCompanyName: document.getElementById("certCompanyName"),
     certCompanyAddress: document.getElementById("certCompanyAddress"),
@@ -53,7 +61,11 @@
     certRefNo: document.getElementById("certRefNo"),
     certIssueDate: document.getElementById("certIssueDate"),
     certEmpName: document.getElementById("certEmpName"),
+    certFatherName: document.getElementById("certFatherName"),
+    certDob: document.getElementById("certDob"),
     certEmpId: document.getElementById("certEmpId"),
+    certPersonalNo: document.getElementById("certPersonalNo"),
+    certEmpAddress: document.getElementById("certEmpAddress"),
     certBodyCompany: document.getElementById("certBodyCompany"),
     certJobTitle: document.getElementById("certJobTitle"),
     certSiteLocation: document.getElementById("certSiteLocation"),
@@ -153,10 +165,10 @@
     els.heroRole.textContent = d.jobTitle || DEFAULTS.jobTitle;
     els.heroCertId.textContent = d.refNo || DEFAULTS.refNo;
     els.heroEmpName.textContent = d.empName || DEFAULTS.empName;
-    els.heroCompany.textContent = d.companyName || DEFAULTS.companyName;
+    els.heroPassport.textContent = d.empId || DEFAULTS.empId;
 
     // Certificate header
-    els.certLogoText.textContent = getInitials(d.companyName);
+    els.certLogoText.textContent = d.companyName.startsWith("[") ? "GL" : getInitials(d.companyName);
     els.certCompanyName.textContent = d.companyName;
     els.certCompanyAddress.textContent = d.companyAddress;
     els.certCompanyContact.textContent = d.companyContact;
@@ -165,7 +177,11 @@
 
     // Certificate body
     els.certEmpName.textContent = d.empName;
+    els.certFatherName.textContent = d.fatherName;
+    els.certDob.textContent = d.dob;
     els.certEmpId.textContent = d.empId;
+    els.certPersonalNo.textContent = d.personalNo;
+    els.certEmpAddress.textContent = d.empAddress;
     els.certBodyCompany.textContent = d.companyName;
     els.certJobTitle.textContent = d.jobTitle;
     els.certSiteLocation.textContent = d.siteLocation;
