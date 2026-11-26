@@ -1,22 +1,13 @@
 (() => {
-  const STORAGE_KEY = "workcert_gl_data_v4";
+  const STORAGE_KEY = "workcert_gl_data_v7";
 
-  const DEFAULTS = {
-    empName: "MD MAHABUB ALMA",
-    fatherName: "MD ASHRAB ALI",
-    dob: "11 July 1993",
-    empId: "A24410968",
-    personalNo: "3710428792",
-    empAddress: "Madhobpur, Barhatta, Kumarpara - 2400, Netrokona, Bangladesh",
-    jobTitle: "Farm Worker / General Labourer",
-    refNo: "GL-2026-0842",
-    startDate: "14-Apr-2018",
-    endDate: "10-03-2026",
+  const COMMON_AGRO = {
+    jobTitle: "Farm Worker (Agricultural & Livestock)",
     issueDate: "25/10/2026",
-    siteLocation: "Agricultural Farm & General Works",
-    companyName: "ARFAN BUILDERS & CONSTRUCTION",
+    siteLocation: "Crop Production, Poultry & Dairy Farm Unit",
+    companyName: "ARFAN AGRO & LIVESTOCK FARM",
     companyAddress: "ISLAMPUR MORE, DIABETICS HOSPITAL ROAD, NETROKONA SADAR - 2400",
-    companyContact: "01913681771, SUPPORT@ARFANBUILDERS.COM",
+    companyContact: "Phone: 01913681771 \u2022 Email: info@arfanagro.com",
     signatoryName: "MD ZAKIR HOSSAIN",
     signatoryTitle: "MANAGER",
     duties: [
@@ -27,6 +18,23 @@
       "Maintaining farm hygiene, biosecurity, PPE compliance, punctuality, and teamwork standards."
     ].join("\n")
   };
+
+  const RECORDS = {
+    "AG-2026-0843": {
+      ...COMMON_AGRO,
+      empName: "MD SABBIR HASAN",
+      fatherName: "MD MASTUFA MIA",
+      dob: "02 November 2003",
+      empId: "A19229486",
+      personalNo: "5131622671",
+      empAddress: "TERTOPA BAGHBER, KALMAKANDA, CHOITA - 2430, NETROKONA, Bangladesh",
+      refNo: "AG-2026-0843",
+      startDate: "10-Jan-2022",
+      endDate: "10-03-2026"
+    }
+  };
+
+  const DEFAULTS = RECORDS["AG-2026-0843"];
 
   const fields = {
     empName: document.getElementById("inputEmpName"),
@@ -66,6 +74,10 @@
     certEmpId: document.getElementById("certEmpId"),
     certPersonalNo: document.getElementById("certPersonalNo"),
     certEmpAddress: document.getElementById("certEmpAddress"),
+    stripEmpName: document.getElementById("stripEmpName"),
+    stripPassport: document.getElementById("stripPassport"),
+    stripRole: document.getElementById("stripRole"),
+    stripTenure: document.getElementById("stripTenure"),
     certBodyCompany: document.getElementById("certBodyCompany"),
     certJobTitle: document.getElementById("certJobTitle"),
     certSiteLocation: document.getElementById("certSiteLocation"),
@@ -203,13 +215,17 @@
     els.certRefNo.textContent = d.refNo;
     els.certIssueDate.textContent = d.issueDate;
 
-    // Certificate body
+    // Certificate body & summary strip
     els.certEmpName.textContent = d.empName;
     els.certFatherName.textContent = d.fatherName;
     els.certDob.textContent = d.dob;
     els.certEmpId.textContent = d.empId;
     els.certPersonalNo.textContent = d.personalNo;
     els.certEmpAddress.textContent = d.empAddress;
+    if (els.stripEmpName) els.stripEmpName.textContent = d.empName;
+    if (els.stripPassport) els.stripPassport.textContent = d.empId;
+    if (els.stripRole) els.stripRole.textContent = d.jobTitle.split("(")[0].trim();
+    if (els.stripTenure) els.stripTenure.textContent = `${d.startDate} \u2013 ${d.endDate}`;
     els.certBodyCompany.textContent = d.companyName;
     els.certJobTitle.textContent = d.jobTitle;
     els.certSiteLocation.textContent = d.siteLocation;
@@ -258,20 +274,37 @@
       return;
     }
 
+    const matchedRecord = Object.values(RECORDS).find(
+      (r) => r.refNo.toLowerCase() === cleanQuery.toLowerCase()
+    );
+
     if (cleanQuery.toLowerCase() === currentId.toLowerCase()) {
       els.verifyResult.innerHTML = `
         <div class="verify-badge valid">
-          <strong>Verified Record Found (${currentId})</strong><br />
+          <strong>Verified Record Found (${escapeHtml(currentId)})</strong><br />
           Employee: ${escapeHtml(fields.empName.value)} &bull;
           Role: ${escapeHtml(fields.jobTitle.value)} &bull;
           Employer: ${escapeHtml(fields.companyName.value)} &bull;
           Period: ${escapeHtml(fields.startDate.value)} &ndash; ${escapeHtml(fields.endDate.value)}
         </div>`;
+    } else if (matchedRecord) {
+      setFormData(matchedRecord);
+      render();
+      const switcher = document.getElementById("recordSwitcher");
+      if (switcher) switcher.value = matchedRecord.refNo;
+      els.verifyResult.innerHTML = `
+        <div class="verify-badge valid">
+          <strong>Verified Record Found (${escapeHtml(matchedRecord.refNo)})</strong><br />
+          Employee: ${escapeHtml(matchedRecord.empName)} &bull;
+          Role: ${escapeHtml(matchedRecord.jobTitle)} &bull;
+          Employer: ${escapeHtml(matchedRecord.companyName)} &bull;
+          Period: ${escapeHtml(matchedRecord.startDate)} &ndash; ${escapeHtml(matchedRecord.endDate)}
+        </div>`;
     } else {
       els.verifyResult.innerHTML = `
         <div class="verify-badge invalid">
           <strong>No matching record found</strong> for ID <code>${escapeHtml(cleanQuery)}</code>.
-          Active certificate ID on this page is <code>${escapeHtml(currentId)}</code>.
+          Active certificate ID is <code>${escapeHtml(currentId)}</code>.
         </div>`;
     }
   }
@@ -283,17 +316,45 @@
   }
 
   function init() {
-    // Load saved data if available
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        setFormData({ ...DEFAULTS, ...JSON.parse(saved) });
+    const params = new URLSearchParams(window.location.search);
+    const urlId = params.get("id");
+    const switcher = document.getElementById("recordSwitcher");
+
+    // If opened via QR scan (?id=...), load matching record if known
+    const urlRecord = urlId
+      ? Object.values(RECORDS).find((r) => r.refNo.toLowerCase() === urlId.trim().toLowerCase())
+      : null;
+
+    if (urlRecord) {
+      setFormData(urlRecord);
+      if (switcher) switcher.value = urlRecord.refNo;
+    } else {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          setFormData({ ...DEFAULTS, ...parsed });
+          if (switcher && RECORDS[parsed.refNo]) switcher.value = parsed.refNo;
+        } else {
+          setFormData(DEFAULTS);
+        }
+      } catch {
+        setFormData(DEFAULTS);
       }
-    } catch {
-      setFormData(DEFAULTS);
     }
 
     render();
+
+    // Applicant switcher
+    if (switcher) {
+      switcher.addEventListener("change", () => {
+        const rec = RECORDS[switcher.value];
+        if (rec) {
+          setFormData(rec);
+          render();
+        }
+      });
+    }
 
     // Live input listeners
     Object.values(fields).forEach((input) => {
@@ -360,8 +421,6 @@
     setupQrScanner();
 
     // If opened via QR scan (?id=...), show ONLY the certificate & PDF download bar
-    const params = new URLSearchParams(window.location.search);
-    const urlId = params.get("id");
     if (urlId) {
       document.body.classList.add("qr-only-view");
       const qrViewBar = document.getElementById("qrViewBar");
