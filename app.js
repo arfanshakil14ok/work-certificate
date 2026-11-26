@@ -1,5 +1,5 @@
 (() => {
-  const STORAGE_KEY = "workcert_gl_data_v3";
+  const STORAGE_KEY = "workcert_gl_data_v4";
 
   const DEFAULTS = {
     empName: "MD MAHABUB ALMA",
@@ -8,23 +8,23 @@
     empId: "A24410968",
     personalNo: "3710428792",
     empAddress: "Madhobpur, Barhatta, Kumarpara - 2400, Netrokona, Bangladesh",
-    jobTitle: "General Labourer / General Worker",
+    jobTitle: "Farm Worker / General Labourer",
     refNo: "GL-2026-0842",
     startDate: "14-Apr-2018",
     endDate: "10-03-2026",
     issueDate: "25/10/2026",
-    siteLocation: "General Labourer / General Worker",
+    siteLocation: "Agricultural Farm & General Works",
     companyName: "ARFAN BUILDERS & CONSTRUCTION",
     companyAddress: "ISLAMPUR MORE, DIABETICS HOSPITAL ROAD, NETROKONA SADAR - 2400",
     companyContact: "01913681771, SUPPORT@ARFANBUILDERS.COM",
     signatoryName: "MD ZAKIR HOSSAIN",
     signatoryTitle: "MANAGER",
     duties: [
-      "Performing general labouring, site preparation, cleaning, and material handling duties as assigned.",
-      "Assisting skilled tradespeople (masons, carpenters, and technicians) with daily site operations.",
-      "Loading, unloading, sorting, and transporting construction materials, tools, and equipment safely.",
-      "Operating basic hand and power tools in accordance with workplace safety rules and instructions.",
-      "Maintaining workplace cleanliness, PPE compliance, punctuality, and teamwork standards."
+      "Performing daily farm labouring, land preparation, planting, weeding, irrigation, and crop care duties.",
+      "Feeding, watering, and caring for livestock/poultry, and cleaning farm sheds, barns, and enclosures.",
+      "Harvesting, sorting, packing, loading, and transporting agricultural produce, feed, and farm supplies safely.",
+      "Operating and maintaining basic farm hand tools, sprayers, and equipment in accordance with safety rules.",
+      "Maintaining farm hygiene, biosecurity, PPE compliance, punctuality, and teamwork standards."
     ].join("\n")
   };
 
