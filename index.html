@@ -3,33 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>General Labourer — Online Work Experience Certificate &amp; Verification</title>
-  <meta name="description" content="Professional online General Labourer work experience certificate landing page, live customizer, A4 PDF print export, and certificate ID verification." />
+  <title>WorkCert Corporate — Work Experience Certificate &amp; Verification Portal</title>
+  <meta name="description" content="Enterprise work experience certificate issuance, live QR verification, and A4 PDF export portal." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <!-- Top Navigation (hidden on print) -->
   <header class="site-header no-print">
     <div class="container header-inner">
-      <a href="#top" class="brand">
-        <span class="brand-badge" aria-hidden="true">GL</span>
+      <a href="#top" class="brand" aria-label="WorkCert Corporate Home">
+        <span class="brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="10" fill="url(#hdrBrandGrad)"/>
+            <path d="M20 7.5L30.5 12V20.5C30.5 27.3 26 32.8 20 35C14 32.8 9.5 27.3 9.5 20.5V12L20 7.5Z" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
+            <path d="M15.2 20.5L18.5 23.8L25.5 16.5" stroke="#10b981" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="30" cy="10.5" r="2.8" fill="#f59e0b"/>
+            <defs>
+              <linearGradient id="hdrBrandGrad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#0f2942"/>
+                <stop offset="1" stop-color="#1b4973"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </span>
         <span class="brand-text">
-          <strong>WorkCert</strong>
-          <small>General Labourer Portal</small>
+          <strong>WorkCert<span class="brand-dot">.</span></strong>
+          <small>Corporate Credential Portal</small>
         </span>
       </a>
+
       <nav class="nav-links" aria-label="Main navigation">
+        <a href="#features">Platform</a>
         <a href="#certificate">Certificate</a>
-        <a href="#customizer">Customize</a>
+        <a href="#customizer">Create</a>
         <a href="#verify">Verify ID</a>
       </nav>
+
       <div class="header-actions">
-        <button type="button" class="btn btn-outline btn-sm" id="btnToggleEdit">Edit Details</button>
-        <button type="button" class="btn btn-outline btn-sm" id="btnPrintTop">Print</button>
-        <button type="button" class="btn btn-primary btn-sm" id="btnDownloadPdfTop">Download PDF</button>
+        <!-- Guest Actions -->
+        <div class="auth-actions" id="authGuestActions">
+          <button type="button" class="btn btn-ghost btn-sm" id="btnOpenSignIn">Sign In</button>
+          <button type="button" class="btn btn-primary btn-sm" id="btnOpenSignUp">Create Account</button>
+        </div>
+        <!-- Authenticated Actions -->
+        <div class="auth-actions" id="authUserActions" hidden>
+          <div class="user-pill" title="Signed-in account">
+            <span class="user-avatar" id="headerUserAvatar">U</span>
+            <span class="user-name" id="headerUserName">User</span>
+          </div>
+          <button type="button" class="btn btn-outline btn-sm" id="btnNewCertHeader">+ New Certificate</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="btnSignOut">Sign Out</button>
+        </div>
       </div>
     </div>
   </header>
@@ -39,37 +67,50 @@
     <section class="hero no-print">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <span class="eyebrow">Online Experience Verification</span>
-          <h1>General Labourer Work Experience Certificate</h1>
+          <span class="eyebrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+            Enterprise Experience Verification
+          </span>
+          <h1>Official Work Experience Certificates, Built for Trust.</h1>
           <p class="hero-sub">
-            A clean, verifiable online work experience certificate landing page ready for Vercel deployment. Customize employer and worker details, share a verification link, or export an A4 PDF in one click.
+            Issue verified, A4 print-ready employment certificates with embedded QR authentication. Create a WorkCert account to generate, customize, and manage official worker credentials.
           </p>
           <div class="hero-cta">
-            <button type="button" class="btn btn-primary" id="btnDownloadPdfHero">Download A4 PDF</button>
-            <a href="#certificate" class="btn btn-outline">View Certificate</a>
-            <a href="#customizer" class="btn btn-outline">Customize Fields</a>
-            <a href="#verify" class="btn btn-ghost">Verify Certificate ID</a>
+            <button type="button" class="btn btn-primary btn-lg" id="btnHeroCreateCert">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 5v14M5 12h14"/>
+              </svg>
+              Create Certificate
+            </button>
+            <a href="#verify" class="btn btn-outline btn-lg">Verify Certificate ID</a>
+            <a href="#certificate" class="btn btn-ghost btn-lg">Preview Sample</a>
           </div>
           <div class="hero-stats">
             <div class="stat">
-              <span class="stat-val">A4</span>
-              <span class="stat-lbl">Print-Ready PDF</span>
+              <span class="stat-val">Account</span>
+              <span class="stat-lbl">Protected Issuance</span>
             </div>
             <div class="stat">
-              <span class="stat-val">QR</span>
-              <span class="stat-lbl">Live Verification</span>
+              <span class="stat-val">QR + ID</span>
+              <span class="stat-lbl">Instant Verification</span>
             </div>
             <div class="stat">
-              <span class="stat-val">100%</span>
-              <span class="stat-lbl">Vercel Ready</span>
+              <span class="stat-val">A4 PDF</span>
+              <span class="stat-lbl">Print-Ready Export</span>
             </div>
           </div>
         </div>
 
         <div class="hero-card">
-          <div class="status-pill">
-            <span class="dot"></span>
-            <span>Certificate Record Active</span>
+          <div class="hero-card-head">
+            <div class="status-pill">
+              <span class="dot"></span>
+              <span>Active Certificate Record</span>
+            </div>
+            <span class="corp-badge">VERIFIED</span>
           </div>
           <dl class="quick-meta">
             <div>
@@ -89,10 +130,74 @@
               <dd id="heroPassport">A19229486</dd>
             </div>
           </dl>
-          <button type="button" class="btn btn-primary btn-block" id="btnCopyLink">
-            Copy Shareable Verification Link
-          </button>
+          <div class="hero-card-actions">
+            <button type="button" class="btn btn-primary btn-block" id="btnCopyLink">
+              Copy Shareable Verification Link
+            </button>
+            <button type="button" class="btn btn-outline btn-block" id="btnDownloadPdfHero">
+              Download A4 PDF
+            </button>
+          </div>
           <p class="copy-feedback" id="copyFeedback" role="status" aria-live="polite"></p>
+          <div class="hero-account-note" id="heroAccountNote">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            <span>Sign in required to create or edit certificates.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Corporate Features Strip (hidden on print) -->
+    <section id="features" class="features-strip no-print">
+      <div class="container">
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="feature-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <div>
+              <h3>Authenticated Issuance</h3>
+              <p>Only registered account holders can create, customize, and save new experience certificates.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="7"/>
+                <rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/>
+                <path d="M3 14h7v7H3z"/>
+              </svg>
+            </div>
+            <div>
+              <h3>Live QR Verification</h3>
+              <p>Every certificate generates a scannable QR code linked directly to its verification record.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+              </svg>
+            </div>
+            <div>
+              <h3>A4 Print &amp; PDF Ready</h3>
+              <p>Precision-formatted single-page A4 layout for instant PDF download or physical printing.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -114,10 +219,10 @@
         <div class="section-bar no-print">
           <div>
             <h2>Official Certificate Preview</h2>
-            <p>Formatted for A4 paper. Click <strong>Download PDF</strong> for an instant A4 PDF file or <strong>Print</strong>.</p>
+            <p>Formatted for A4 paper. Sign in to customize fields, or export the current preview as PDF.</p>
           </div>
           <div class="section-bar-actions">
-            <button type="button" class="btn btn-outline btn-sm" id="btnResetDemo">Reset</button>
+            <button type="button" class="btn btn-outline btn-sm" id="btnToggleEdit">Customize / Create</button>
             <button type="button" class="btn btn-outline btn-sm" id="btnPrintMain">Print</button>
             <button type="button" class="btn btn-primary btn-sm" id="btnDownloadPdfMain">Download PDF</button>
           </div>
@@ -226,92 +331,128 @@
     <section id="customizer" class="customizer-section no-print">
       <div class="container">
         <div class="section-heading">
-          <h2>Customize Certificate Details</h2>
-          <p>Update any field below to see live changes on the certificate. Changes are saved automatically in your browser.</p>
+          <h2>Create &amp; Customize Certificate</h2>
+          <p>Authenticated account holders can create new certificates, customize employer and employee details, and save records.</p>
         </div>
 
-        <form id="certForm" class="customizer-form" autocomplete="off">
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="inputEmpName">Employee Full Name</label>
-              <input type="text" id="inputEmpName" value="MD SABBIR HASAN" required />
-            </div>
-            <div class="form-group">
-              <label for="inputFatherName">Father's Name</label>
-              <input type="text" id="inputFatherName" value="MD MASTUFA MIA" required />
-            </div>
-            <div class="form-group">
-              <label for="inputDob">Date of Birth</label>
-              <input type="text" id="inputDob" value="02 November 2003" required />
-            </div>
-            <div class="form-group">
-              <label for="inputEmpId">Passport Number</label>
-              <input type="text" id="inputEmpId" value="A19229486" required />
-            </div>
-            <div class="form-group">
-              <label for="inputPersonalNo">Personal / NID No.</label>
-              <input type="text" id="inputPersonalNo" value="5131622671" required />
-            </div>
-            <div class="form-group">
-              <label for="inputEmpAddress">Permanent Address</label>
-              <input type="text" id="inputEmpAddress" value="TERTOPA BAGHBER, KALMAKANDA, CHOITA - 2430, NETROKONA, Bangladesh" required />
-            </div>
-            <div class="form-group">
-              <label for="inputJobTitle">Job Title</label>
-              <input type="text" id="inputJobTitle" value="Farm Worker (Agricultural & Livestock)" required />
-            </div>
-            <div class="form-group">
-              <label for="inputRefNo">Certificate / Reference ID</label>
-              <input type="text" id="inputRefNo" value="AG-2026-0843" required />
-            </div>
+        <!-- Locked Auth Gate (shown when user is NOT signed in) -->
+        <div class="auth-gate-card" id="customizerAuthGate">
+          <div class="auth-gate-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </div>
+          <h3>Account Required to Create Certificates</h3>
+          <p>
+            You cannot create or edit a work experience certificate without a WorkCert account. Sign in to your existing account or register a free account in seconds.
+          </p>
+          <div class="auth-gate-actions">
+            <button type="button" class="btn btn-primary" id="btnGateSignIn">Sign In</button>
+            <button type="button" class="btn btn-outline" id="btnGateSignUp">Create Account</button>
+          </div>
+        </div>
 
-            <div class="form-group">
-              <label for="inputStartDate">Employment Start Date</label>
-              <input type="text" id="inputStartDate" value="10-Jan-2022" required />
+        <!-- Unlocked Workspace (shown ONLY when signed in) -->
+        <div id="customizerWorkspace" hidden>
+          <div class="workspace-toolbar">
+            <div class="workspace-toolbar-left">
+              <label for="savedCertSelect" class="toolbar-label">Saved Certificates</label>
+              <select id="savedCertSelect" class="record-select" aria-label="Select saved certificate">
+                <option value="AG-2026-0843">Sample: AG-2026-0843 (MD SABBIR HASAN)</option>
+              </select>
             </div>
-            <div class="form-group">
-              <label for="inputEndDate">Employment End Date</label>
-              <input type="text" id="inputEndDate" value="10-03-2026" required />
+            <div class="workspace-toolbar-actions">
+              <button type="button" class="btn btn-outline btn-sm" id="btnNewCert">+ New Certificate</button>
+              <button type="button" class="btn btn-primary btn-sm" id="btnSaveCert">Save Certificate</button>
+              <button type="button" class="btn btn-ghost btn-sm" id="btnResetDemo">Reset Sample</button>
             </div>
-            <div class="form-group">
-              <label for="inputIssueDate">Certificate Issue Date</label>
-              <input type="text" id="inputIssueDate" value="25/10/2026" required />
-            </div>
-            <div class="form-group">
-              <label for="inputSiteLocation">Work Site / Department</label>
-              <input type="text" id="inputSiteLocation" value="Crop Production, Poultry & Dairy Farm Unit" required />
-            </div>
+          </div>
+          <p class="save-feedback" id="saveFeedback" role="status" aria-live="polite"></p>
 
-            <div class="form-group">
-              <label for="inputCompanyName">Company / Employer Name</label>
-              <input type="text" id="inputCompanyName" value="ARFAN AGRO & LIVESTOCK FARM" required />
-            </div>
-            <div class="form-group">
-              <label for="inputCompanyAddress">Company Address</label>
-              <input type="text" id="inputCompanyAddress" value="ISLAMPUR MORE, DIABETICS HOSPITAL ROAD, NETROKONA SADAR - 2400" required />
-            </div>
-            <div class="form-group">
-              <label for="inputCompanyContact">Company Phone &amp; Email</label>
-              <input type="text" id="inputCompanyContact" value="Phone: 01913681771 • Email: info@arfanagro.com" required />
-            </div>
-            <div class="form-group">
-              <label for="inputSignatoryName">Authorized Signatory Name</label>
-              <input type="text" id="inputSignatoryName" value="MD ZAKIR HOSSAIN" required />
-            </div>
-            <div class="form-group form-group-full">
-              <label for="inputSignatoryTitle">Signatory Designation</label>
-              <input type="text" id="inputSignatoryTitle" value="MANAGER" required />
-            </div>
-            <div class="form-group form-group-full">
-              <label for="inputDuties">Key Duties &amp; Responsibilities (one per line)</label>
-              <textarea id="inputDuties" rows="5">Performing daily farm labouring, land preparation, planting, weeding, irrigation, and crop care duties.
+          <form id="certForm" class="customizer-form" autocomplete="off">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="inputEmpName">Employee Full Name</label>
+                <input type="text" id="inputEmpName" value="MD SABBIR HASAN" required />
+              </div>
+              <div class="form-group">
+                <label for="inputFatherName">Father's Name</label>
+                <input type="text" id="inputFatherName" value="MD MASTUFA MIA" required />
+              </div>
+              <div class="form-group">
+                <label for="inputDob">Date of Birth</label>
+                <input type="text" id="inputDob" value="02 November 2003" required />
+              </div>
+              <div class="form-group">
+                <label for="inputEmpId">Passport Number</label>
+                <input type="text" id="inputEmpId" value="A19229486" required />
+              </div>
+              <div class="form-group">
+                <label for="inputPersonalNo">Personal / NID No.</label>
+                <input type="text" id="inputPersonalNo" value="5131622671" required />
+              </div>
+              <div class="form-group">
+                <label for="inputEmpAddress">Permanent Address</label>
+                <input type="text" id="inputEmpAddress" value="TERTOPA BAGHBER, KALMAKANDA, CHOITA - 2430, NETROKONA, Bangladesh" required />
+              </div>
+              <div class="form-group">
+                <label for="inputJobTitle">Job Title</label>
+                <input type="text" id="inputJobTitle" value="Farm Worker (Agricultural & Livestock)" required />
+              </div>
+              <div class="form-group">
+                <label for="inputRefNo">Certificate / Reference ID</label>
+                <input type="text" id="inputRefNo" value="AG-2026-0843" required />
+              </div>
+
+              <div class="form-group">
+                <label for="inputStartDate">Employment Start Date</label>
+                <input type="text" id="inputStartDate" value="10-Jan-2022" required />
+              </div>
+              <div class="form-group">
+                <label for="inputEndDate">Employment End Date</label>
+                <input type="text" id="inputEndDate" value="10-03-2026" required />
+              </div>
+              <div class="form-group">
+                <label for="inputIssueDate">Certificate Issue Date</label>
+                <input type="text" id="inputIssueDate" value="25/10/2026" required />
+              </div>
+              <div class="form-group">
+                <label for="inputSiteLocation">Work Site / Department</label>
+                <input type="text" id="inputSiteLocation" value="Crop Production, Poultry & Dairy Farm Unit" required />
+              </div>
+
+              <div class="form-group">
+                <label for="inputCompanyName">Company / Employer Name</label>
+                <input type="text" id="inputCompanyName" value="ARFAN AGRO & LIVESTOCK FARM" required />
+              </div>
+              <div class="form-group">
+                <label for="inputCompanyAddress">Company Address</label>
+                <input type="text" id="inputCompanyAddress" value="ISLAMPUR MORE, DIABETICS HOSPITAL ROAD, NETROKONA SADAR - 2400" required />
+              </div>
+              <div class="form-group">
+                <label for="inputCompanyContact">Company Phone &amp; Email</label>
+                <input type="text" id="inputCompanyContact" value="Phone: 01913681771 • Email: info@arfanagro.com" required />
+              </div>
+              <div class="form-group">
+                <label for="inputSignatoryName">Authorized Signatory Name</label>
+                <input type="text" id="inputSignatoryName" value="MD ZAKIR HOSSAIN" required />
+              </div>
+              <div class="form-group form-group-full">
+                <label for="inputSignatoryTitle">Signatory Designation</label>
+                <input type="text" id="inputSignatoryTitle" value="MANAGER" required />
+              </div>
+              <div class="form-group form-group-full">
+                <label for="inputDuties">Key Duties &amp; Responsibilities (one per line)</label>
+                <textarea id="inputDuties" rows="5">Performing daily farm labouring, land preparation, planting, weeding, irrigation, and crop care duties.
 Feeding, watering, and caring for livestock/poultry, and cleaning farm sheds, barns, and enclosures.
 Harvesting, sorting, packing, loading, and transporting agricultural produce, feed, and farm supplies safely.
 Operating and maintaining basic farm hand tools, sprayers, and equipment in accordance with safety rules.
 Maintaining farm hygiene, biosecurity, PPE compliance, punctuality, and teamwork standards.</textarea>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </section>
 
@@ -321,10 +462,10 @@ Maintaining farm hygiene, biosecurity, PPE compliance, punctuality, and teamwork
         <div class="verify-card">
           <div class="verify-copy">
             <h2>Online Certificate Verification</h2>
-            <p>Enter a Certificate ID (e.g. <code>GL-2026-0842</code>) to check its validity against the current record.</p>
+            <p>Enter a Certificate ID (e.g. <code>AG-2026-0843</code>) or scan a QR code to verify its authenticity.</p>
           </div>
           <form id="verifyForm" class="verify-form">
-            <input type="text" id="verifyInput" placeholder="Enter Certificate ID (e.g. GL-2026-0842)" aria-label="Certificate ID to verify" />
+            <input type="text" id="verifyInput" placeholder="Enter Certificate ID (e.g. AG-2026-0843)" aria-label="Certificate ID to verify" />
             <button type="submit" class="btn btn-primary">Verify Now</button>
             <button type="button" class="btn btn-outline" id="btnScanQr">Scan QR (Camera)</button>
             <label class="btn btn-outline qr-upload-label" for="qrFileInput">Upload QR Image</label>
@@ -345,10 +486,99 @@ Maintaining farm hygiene, biosecurity, PPE compliance, punctuality, and teamwork
 
   <footer class="site-footer no-print">
     <div class="container footer-inner">
-      <p>General Labourer Work Experience Certificate Portal &bull; Ready for Vercel Static Deployment</p>
-      <p class="footer-note">Note: Replace the sample employer and worker details with your verified employment information before sharing.</p>
+      <div class="footer-brand">
+        <span class="brand-logo brand-logo-sm" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="10" fill="#0f2942"/>
+            <path d="M20 7.5L30.5 12V20.5C30.5 27.3 26 32.8 20 35C14 32.8 9.5 27.3 9.5 20.5V12L20 7.5Z" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.3)" stroke-width="1.2"/>
+            <path d="M15.2 20.5L18.5 23.8L25.5 16.5" stroke="#10b981" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <div>
+          <strong>WorkCert Corporate</strong>
+          <p>Work Experience Certificate &amp; Credential Verification Portal</p>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="#features">Platform</a>
+        <a href="#certificate">Preview</a>
+        <a href="#customizer">Create</a>
+        <a href="#verify">Verify ID</a>
+      </div>
+      <div class="footer-owner">
+        <span class="footer-owner-label">Owner &amp; Copyrights</span>
+        <strong class="footer-owner-name">&copy; 2026 ARFAN SHAKIL</strong>
+        <span class="footer-owner-rights">All Rights Reserved</span>
+      </div>
+      <p class="footer-note">Account authentication is required to issue or modify certificates. Public QR verification remains open.</p>
     </div>
   </footer>
+
+  <!-- Sign In / Sign Up Modal (hidden on print) -->
+  <div class="modal-backdrop no-print" id="authModal" hidden role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
+    <div class="modal-card">
+      <button type="button" class="modal-close" id="btnCloseAuthModal" aria-label="Close authentication modal">&times;</button>
+
+      <div class="modal-brand">
+        <span class="brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="10" fill="#0f2942"/>
+            <path d="M20 7.5L30.5 12V20.5C30.5 27.3 26 32.8 20 35C14 32.8 9.5 27.3 9.5 20.5V12L20 7.5Z" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/>
+            <path d="M15.2 20.5L18.5 23.8L25.5 16.5" stroke="#10b981" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="30" cy="10.5" r="2.8" fill="#f59e0b"/>
+          </svg>
+        </span>
+        <div>
+          <h2 id="authModalTitle">WorkCert Account</h2>
+          <p>Sign in or register to create &amp; manage certificates</p>
+        </div>
+      </div>
+
+      <div class="modal-notice" id="authModalNotice" hidden></div>
+
+      <div class="auth-tabs" role="tablist">
+        <button type="button" class="auth-tab active" id="tabSignIn" role="tab" aria-selected="true">Sign In</button>
+        <button type="button" class="auth-tab" id="tabSignUp" role="tab" aria-selected="false">Create Account</button>
+      </div>
+
+      <!-- Sign In Form -->
+      <form id="signInForm" class="auth-form">
+        <div class="form-group">
+          <label for="signInEmail">Email Address</label>
+          <input type="email" id="signInEmail" placeholder="name@company.com" required autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label for="signInPassword">Password</label>
+          <input type="password" id="signInPassword" placeholder="Enter your password" required autocomplete="current-password" />
+        </div>
+        <p class="auth-error" id="signInError" role="alert"></p>
+        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+        <button type="button" class="btn btn-outline btn-block" id="btnDemoLogin">Use Demo Corporate Account</button>
+      </form>
+
+      <!-- Sign Up Form -->
+      <form id="signUpForm" class="auth-form" hidden>
+        <div class="form-group">
+          <label for="signUpName">Full Name</label>
+          <input type="text" id="signUpName" placeholder="e.g. Md Arfan Mia" required autocomplete="name" />
+        </div>
+        <div class="form-group">
+          <label for="signUpCompany">Organization / Company (Optional)</label>
+          <input type="text" id="signUpCompany" placeholder="e.g. Arfan Agro & Livestock Farm" autocomplete="organization" />
+        </div>
+        <div class="form-group">
+          <label for="signUpEmail">Email Address</label>
+          <input type="email" id="signUpEmail" placeholder="name@company.com" required autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label for="signUpPassword">Password (min. 6 characters)</label>
+          <input type="password" id="signUpPassword" placeholder="Create a password" minlength="6" required autocomplete="new-password" />
+        </div>
+        <p class="auth-error" id="signUpError" role="alert"></p>
+        <button type="submit" class="btn btn-primary btn-block">Create Account &amp; Continue</button>
+      </form>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>

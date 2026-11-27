@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="wcGrad" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0f2942"/>
+      <stop offset="100%" stop-color="#1a456e"/>
+    </linearGradient>
+    <linearGradient id="wcAccent" x1="20" y1="20" x2="46" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="url(#wcGrad)"/>
+  <path d="M32 13L47 19.5V31.5C47 41.2 40.6 48.9 32 52C23.4 48.9 17 41.2 17 31.5V19.5L32 13Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.28)" stroke-width="1.6"/>
+  <path d="M25.5 32.5L30 37L39.5 26.5" stroke="url(#wcAccent)" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="46" cy="18" r="4" fill="#f59e0b"/>
+</svg>
